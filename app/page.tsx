@@ -1,4 +1,4 @@
-"use client";
+"use client"; // force update
 
 import { useMemo, useState } from "react";
 
@@ -20,53 +20,12 @@ function makeCopy(params: {
   niche: string;
   style: string;
   tone: Tone;
-  platforms: { site: boolean; linkedin: boolean; insta: boolean };
-})
-
-function makeClientPack(client: { name: string; niche: string; goal: string }) {
-  const name = client.name || "Клиент";
-  const niche = client.niche || "ниша";
-  const goal = client.goal || "результат";
-
-  const offer = `Я соберу для ${name} узнаваемый монтажный язык и упакую ${niche} так, чтобы это работало на ${goal}.`;
-
-  const bio = [
-    `${name} • ${niche}`,
-    `Видео как система: хук → смысл → стиль → результат.`,
-    `Монтаж (Premiere/AE) + драматургия кадра.`,
-    `Цель: ${goal}.`,
-  ].join("\n");
-
-  const hooks = [
-    `99% видео про ${niche} выглядят одинаково. Вот как мы сделаем иначе:`,
-    `Если тебе кажется, что ${niche} “не для Reels” — смотри:`,
-    `Три ошибки, из-за которых ${niche} не приносит ${goal}:`,
-  ].join("\n");
-
-  const ideas = [
-    `“Разбор мифа”: 3 мифа про ${niche} и что правда на практике.`,
-    `“До/После”: как меняется результат, когда меняем 1 параметр / подход.`,
-    `“Закулисье”: как это делается/производится/настраивается (визуально вкусно).`,
-    `“Тест на выбор”: A vs B (попросить аудиторию выбрать).`,
-    `“Кейс”: проблема → решение → цифры/результат → вывод.`,
-  ].join("\n");
-
-  const cta = [
-    `Хочешь так же? Напиши “СТИЛЬ” — пришлю 3 идеи под твой продукт.`,
-    `Скидывай свой аккаунт/сайт — скажу, что поменять, чтобы пошли ${goal}.`,
-  ].join("\n");
-
-  return { offer, bio, hooks, ideas, cta };
-}
- {
+}) {
   const name = params.name || "Никита";
-  const city = params.city || "Лиссабон";
+  const city = params.city || "Лиссабоне";
   const roles = params.roles || "актёр • монтажёр • моушн-дизайнер";
-  const niche = params.niche || "реклама, личные бренды, кино/театр";
-  const [clientName, setClientName] = useState("Таня");
-  const [clientNiche, setClientNiche] = useState("промышленные печи");
-  const [clientGoal, setClientGoal] = useState("заявки и продажи");
-  const style = params.style || "узнаваемый язык монтажа под человека";
+  const niche = params.niche || "личными брендами, рекламой, проектами для кино/театра";
+  const style = params.style || "найти и закрепить стиль, который легко узнаётся";
   const tone = params.tone;
 
   const punch =
@@ -120,17 +79,58 @@ Premiere Pro / After Effects. ${city}.
   return { core, site, linkedin, insta };
 }
 
+function makeClientPack(client: { name: string; niche: string; goal: string }) {
+  const name = client.name || "Клиент";
+  const niche = client.niche || "ниша";
+  const goal = client.goal || "результат";
+
+  const offer = `Я соберу для ${name} узнаваемый монтажный язык и упакую ${niche} так, чтобы это работало на ${goal}.`;
+
+  const bio = [
+    `${name} • ${niche}`,
+    `Видео как система: хук → смысл → стиль → результат.`,
+    `Монтаж (Premiere/AE) + драматургия кадра.`,
+    `Цель: ${goal}.`,
+  ].join("\n");
+
+  const hooks = [
+    `99% видео про ${niche} выглядят одинаково. Вот как мы сделаем иначе:`,
+    `Если тебе кажется, что ${niche} “не для Reels” — смотри:`,
+    `Три ошибки, из-за которых ${niche} не приносит ${goal}:`,
+  ].join("\n");
+
+  const ideas = [
+    `“Разбор мифа”: 3 мифа про ${niche} и что правда на практике.`,
+    `“До/После”: как меняется результат, когда меняем 1 параметр / подход.`,
+    `“Закулисье”: как это делается/производится/настраивается (визуально вкусно).`,
+    `“Тест на выбор”: A vs B (попросить аудиторию выбрать).`,
+    `“Кейс”: проблема → решение → цифры/результат → вывод.`,
+  ].join("\n");
+
+  const cta = [
+    `Хочешь так же? Напиши “СТИЛЬ” — пришлю 3 идеи под твой продукт.`,
+    `Скидывай свой аккаунт/сайт — скажу, что поменять, чтобы пошли ${goal}.`,
+  ].join("\n");
+
+  return { offer, bio, hooks, ideas, cta };
+}
+
 export default function Page() {
   const [name, setName] = useState("Никита");
-  const [city, setCity] = useState("Лиссабон");
+  const [city, setCity] = useState("Лиссабоне");
   const [roles, setRoles] = useState("актёр • видеомонтажёр • моушн-дизайнер");
-  const [niche, setNiche] = useState("личные бренды, рекламу, проекты для кино/театра");
+  const [niche, setNiche] = useState("личными брендами, рекламой, проектами для кино/театра");
   const [style, setStyle] = useState("найти и закрепить стиль, который легко узнаётся");
   const [tone, setTone] = useState<Tone>("кинематографично");
 
   const [siteOn, setSiteOn] = useState(true);
   const [liOn, setLiOn] = useState(true);
   const [igOn, setIgOn] = useState(true);
+
+  // ⭐ состояния для клиента — ТОЛЬКО здесь
+  const [clientName, setClientName] = useState("Таня");
+  const [clientNiche, setClientNiche] = useState("промышленные печи");
+  const [clientGoal, setClientGoal] = useState("заявки и продажи");
 
   const copy = useMemo(
     () =>
@@ -141,9 +141,8 @@ export default function Page() {
         niche,
         style,
         tone,
-        platforms: { site: siteOn, linkedin: liOn, insta: igOn },
       }),
-    [name, city, roles, niche, style, tone, siteOn, liOn, igOn]
+    [name, city, roles, niche, style, tone]
   );
 
   const [tab, setTab] = useState<"main" | "site" | "linkedin" | "insta">("main");
@@ -152,9 +151,28 @@ export default function Page() {
     navigator.clipboard.writeText(text);
   }
 
+  const clientPackText = useMemo(() => {
+    const pack = makeClientPack({ name: clientName, niche: clientNiche, goal: clientGoal });
+    return [
+      "ОФФЕР:",
+      pack.offer,
+      "",
+      "BIO:",
+      pack.bio,
+      "",
+      "ХУКИ:",
+      pack.hooks,
+      "",
+      "5 ИДЕЙ REELS:",
+      pack.ideas,
+      "",
+      "CTA:",
+      pack.cta,
+    ].join("\n");
+  }, [clientName, clientNiche, clientGoal]);
+
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100">
-      {/* top glow */}
       <div className="pointer-events-none fixed inset-x-0 top-0 h-64 bg-gradient-to-b from-white/10 to-transparent blur-2xl" />
 
       <header className="mx-auto max-w-6xl px-6 pt-10">
@@ -187,12 +205,10 @@ export default function Page() {
           <div className="rounded-3xl bg-white/5 p-8 ring-1 ring-white/10">
             <div className="text-sm text-neutral-400">в двух словах</div>
             <h1 className="mt-3 text-4xl font-semibold tracking-tight">
-              Монтаж, который
-              <span className="text-neutral-300"> узнают с первых секунд</span>
+              Монтаж, который <span className="text-neutral-300">узнают с первых секунд</span>
             </h1>
             <p className="mt-4 text-neutral-300">
-              Я думаю сценой и ритмом. Из театра и кино — в монтаж: смысл, пауза, акцент,
-              стиль.
+              Я думаю сценой и ритмом. Из театра и кино — в монтаж: смысл, пауза, акцент, стиль.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -232,7 +248,6 @@ export default function Page() {
       </header>
 
       <main className="mx-auto max-w-6xl px-6 pb-24">
-        {/* Generator */}
         <section id="generator" className="mt-10 rounded-3xl bg-white/5 p-8 ring-1 ring-white/10">
           <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>
@@ -263,15 +278,15 @@ export default function Page() {
               <Field label="Роли" value={roles} onChange={setRoles} />
               <Field label="С чем работаешь" value={niche} onChange={setNiche} />
               <Field label="Что для тебя главное" value={style} onChange={setStyle} />
-              <div className="rounded-2xl bg-neutral-900/60 p-4 ring-1 ring-white/10">
-  <div className="text-sm text-neutral-400">Сгенерировать под клиента</div>
-  <div className="mt-3 grid gap-3">
-    <Field label="Имя клиента" value={clientName} onChange={setClientName} />
-    <Field label="Ниша клиента" value={clientNiche} onChange={setClientNiche} />
-    <Field label="Цель" value={clientGoal} onChange={setClientGoal} />
-  </div>
-</div>
 
+              <div className="rounded-2xl bg-neutral-900/60 p-4 ring-1 ring-white/10">
+                <div className="text-sm text-neutral-400">Сгенерировать под клиента</div>
+                <div className="mt-3 grid gap-3">
+                  <Field label="Имя клиента" value={clientName} onChange={setClientName} />
+                  <Field label="Ниша клиента" value={clientNiche} onChange={setClientNiche} />
+                  <Field label="Цель" value={clientGoal} onChange={setClientGoal} />
+                </div>
+              </div>
 
               <div className="rounded-2xl bg-neutral-900/60 p-4 ring-1 ring-white/10">
                 <div className="text-sm text-neutral-400">Выводить блоки</div>
@@ -306,7 +321,17 @@ export default function Page() {
 
                 <div className="ml-auto" />
                 <button
-                  onClick={() => onCopy(tab === "main" ? copy.core : tab === "site" ? copy.site : tab === "linkedin" ? copy.linkedin : copy.insta)}
+                  onClick={() =>
+                    onCopy(
+                      tab === "main"
+                        ? copy.core
+                        : tab === "site"
+                        ? copy.site
+                        : tab === "linkedin"
+                        ? copy.linkedin
+                        : copy.insta
+                    )
+                  }
                   className="rounded-2xl bg-white px-4 py-2 text-sm text-neutral-950 hover:bg-neutral-200"
                 >
                   Скопировать
@@ -322,47 +347,27 @@ export default function Page() {
                   ? copy.linkedin
                   : copy.insta}
               </pre>
-              <div className="border-t border-white/10 p-5">
-  <div className="text-sm text-neutral-400">Пакет для клиента</div>
-  {(() => {
-    const pack = makeClientPack({ name: clientName, niche: clientNiche, goal: clientGoal });
-    const text = [
-      "ОФФЕР:",
-      pack.offer,
-      "",
-      "BIO:",
-      pack.bio,
-      "",
-      "ХУКИ:",
-      pack.hooks,
-      "",
-      "5 ИДЕЙ REELS:",
-      pack.ideas,
-      "",
-      "CTA:",
-      pack.cta,
-    ].join("\n");
-    return (
-      <div className="mt-3">
-        <button
-          onClick={() => navigator.clipboard.writeText(text)}
-          className="rounded-2xl bg-white px-4 py-2 text-sm text-neutral-950 hover:bg-neutral-200"
-        >
-          Скопировать пакет
-        </button>
-        <pre className="mt-3 max-h-[260px] whitespace-pre-wrap text-sm leading-relaxed text-neutral-200">
-          {text}
-        </pre>
-      </div>
-    );
-  })()}
-</div>
 
+              <div className="border-t border-white/10 p-5">
+                <div className="flex items-center gap-3">
+                  <div className="text-sm text-neutral-400">Пакет для клиента</div>
+                  <div className="ml-auto" />
+                  <button
+                    onClick={() => navigator.clipboard.writeText(clientPackText)}
+                    className="rounded-2xl bg-white px-4 py-2 text-sm text-neutral-950 hover:bg-neutral-200"
+                  >
+                    Скопировать пакет
+                  </button>
+                </div>
+
+                <pre className="mt-3 max-h-[260px] whitespace-pre-wrap text-sm leading-relaxed text-neutral-200">
+                  {clientPackText}
+                </pre>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Cases placeholder */}
         <section className="mt-10 grid gap-6 md:grid-cols-3">
           {[
             { title: "Кейс #1", desc: "Сюда вставишь описание и ссылку на ролик." },
@@ -378,7 +383,6 @@ export default function Page() {
           ))}
         </section>
 
-        {/* Contact */}
         <section id="contact" className="mt-10 rounded-3xl bg-white/5 p-8 ring-1 ring-white/10">
           <div className="text-sm text-neutral-400">контакт</div>
           <h3 className="mt-2 text-2xl font-semibold">Дай мне ссылку — я верну стиль</h3>
@@ -386,13 +390,22 @@ export default function Page() {
             Вставь тут свои контакты: Telegram / Instagram / Email. (Пока заглушка.)
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            <a className="rounded-2xl bg-white/10 px-4 py-2 text-sm ring-1 ring-white/10 hover:bg-white/15" href="#">
+            <a
+              className="rounded-2xl bg-white/10 px-4 py-2 text-sm ring-1 ring-white/10 hover:bg-white/15"
+              href="#"
+            >
               Telegram
             </a>
-            <a className="rounded-2xl bg-white/10 px-4 py-2 text-sm ring-1 ring-white/10 hover:bg-white/15" href="#">
+            <a
+              className="rounded-2xl bg-white/10 px-4 py-2 text-sm ring-1 ring-white/10 hover:bg-white/15"
+              href="#"
+            >
               Instagram
             </a>
-            <a className="rounded-2xl bg-white/10 px-4 py-2 text-sm ring-1 ring-white/10 hover:bg-white/15" href="#">
+            <a
+              className="rounded-2xl bg-white/10 px-4 py-2 text-sm ring-1 ring-white/10 hover:bg-white/15"
+              href="#"
+            >
               Email
             </a>
           </div>
