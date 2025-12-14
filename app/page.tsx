@@ -21,11 +21,51 @@ function makeCopy(params: {
   style: string;
   tone: Tone;
   platforms: { site: boolean; linkedin: boolean; insta: boolean };
-}) {
+})
+
+function makeClientPack(client: { name: string; niche: string; goal: string }) {
+  const name = client.name || "Клиент";
+  const niche = client.niche || "ниша";
+  const goal = client.goal || "результат";
+
+  const offer = `Я соберу для ${name} узнаваемый монтажный язык и упакую ${niche} так, чтобы это работало на ${goal}.`;
+
+  const bio = [
+    `${name} • ${niche}`,
+    `Видео как система: хук → смысл → стиль → результат.`,
+    `Монтаж (Premiere/AE) + драматургия кадра.`,
+    `Цель: ${goal}.`,
+  ].join("\n");
+
+  const hooks = [
+    `99% видео про ${niche} выглядят одинаково. Вот как мы сделаем иначе:`,
+    `Если тебе кажется, что ${niche} “не для Reels” — смотри:`,
+    `Три ошибки, из-за которых ${niche} не приносит ${goal}:`,
+  ].join("\n");
+
+  const ideas = [
+    `“Разбор мифа”: 3 мифа про ${niche} и что правда на практике.`,
+    `“До/После”: как меняется результат, когда меняем 1 параметр / подход.`,
+    `“Закулисье”: как это делается/производится/настраивается (визуально вкусно).`,
+    `“Тест на выбор”: A vs B (попросить аудиторию выбрать).`,
+    `“Кейс”: проблема → решение → цифры/результат → вывод.`,
+  ].join("\n");
+
+  const cta = [
+    `Хочешь так же? Напиши “СТИЛЬ” — пришлю 3 идеи под твой продукт.`,
+    `Скидывай свой аккаунт/сайт — скажу, что поменять, чтобы пошли ${goal}.`,
+  ].join("\n");
+
+  return { offer, bio, hooks, ideas, cta };
+}
+ {
   const name = params.name || "Никита";
   const city = params.city || "Лиссабон";
   const roles = params.roles || "актёр • монтажёр • моушн-дизайнер";
   const niche = params.niche || "реклама, личные бренды, кино/театр";
+  const [clientName, setClientName] = useState("Таня");
+  const [clientNiche, setClientNiche] = useState("промышленные печи");
+  const [clientGoal, setClientGoal] = useState("заявки и продажи");
   const style = params.style || "узнаваемый язык монтажа под человека";
   const tone = params.tone;
 
@@ -223,6 +263,15 @@ export default function Page() {
               <Field label="Роли" value={roles} onChange={setRoles} />
               <Field label="С чем работаешь" value={niche} onChange={setNiche} />
               <Field label="Что для тебя главное" value={style} onChange={setStyle} />
+              <div className="rounded-2xl bg-neutral-900/60 p-4 ring-1 ring-white/10">
+  <div className="text-sm text-neutral-400">Сгенерировать под клиента</div>
+  <div className="mt-3 grid gap-3">
+    <Field label="Имя клиента" value={clientName} onChange={setClientName} />
+    <Field label="Ниша клиента" value={clientNiche} onChange={setClientNiche} />
+    <Field label="Цель" value={clientGoal} onChange={setClientGoal} />
+  </div>
+</div>
+
 
               <div className="rounded-2xl bg-neutral-900/60 p-4 ring-1 ring-white/10">
                 <div className="text-sm text-neutral-400">Выводить блоки</div>
@@ -273,6 +322,42 @@ export default function Page() {
                   ? copy.linkedin
                   : copy.insta}
               </pre>
+              <div className="border-t border-white/10 p-5">
+  <div className="text-sm text-neutral-400">Пакет для клиента</div>
+  {(() => {
+    const pack = makeClientPack({ name: clientName, niche: clientNiche, goal: clientGoal });
+    const text = [
+      "ОФФЕР:",
+      pack.offer,
+      "",
+      "BIO:",
+      pack.bio,
+      "",
+      "ХУКИ:",
+      pack.hooks,
+      "",
+      "5 ИДЕЙ REELS:",
+      pack.ideas,
+      "",
+      "CTA:",
+      pack.cta,
+    ].join("\n");
+    return (
+      <div className="mt-3">
+        <button
+          onClick={() => navigator.clipboard.writeText(text)}
+          className="rounded-2xl bg-white px-4 py-2 text-sm text-neutral-950 hover:bg-neutral-200"
+        >
+          Скопировать пакет
+        </button>
+        <pre className="mt-3 max-h-[260px] whitespace-pre-wrap text-sm leading-relaxed text-neutral-200">
+          {text}
+        </pre>
+      </div>
+    );
+  })()}
+</div>
+
             </div>
           </div>
         </section>
